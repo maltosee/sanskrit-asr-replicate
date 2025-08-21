@@ -1,24 +1,26 @@
 build:
   gpu: true
-  cuda: "11.8"
-  python_version: "3.9"
+  cuda: "12.1"
+  python_version: "3.10"
+  
+  # Use the same base as working setup
   system_packages:
-    - "ffmpeg"
     - "libsndfile1"
-    - "libsox-dev"
-    - "sox"
+    - "ffmpeg" 
     - "git"
     - "build-essential"
+  
+  # Install NeMo first, then other packages
+  run:
+    - "git clone https://github.com/AI4Bharat/NeMo.git /tmp/nemo"
+    - "cd /tmp/nemo && git checkout nemo-v2"
+    - "cd /tmp/nemo && pip install --no-cache-dir -e .[asr]"
+  
   python_packages:
-    - "numpy"
-    - "torch>=1.13.0"
     - "soundfile"
-    - "Cython"
+    - "numpy"
     - "huggingface-hub"
     - "librosa"
-    - "omegaconf>=2.0"
-    - "hydra-core>=1.0"
-    - "git+https://github.com/AI4Bharat/NeMo.git@nemo-v2#egg=nemo_toolkit[asr]"
 
 predict: "predict.py:Predictor"
 image: "r8.im/maltosee/vaak-asr"
