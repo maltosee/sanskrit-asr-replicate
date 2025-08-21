@@ -1,5 +1,6 @@
-torch
-soundfile
 numpy
-nemo_toolkit[asr] @ git+https://github.com/AI4Bharat/NeMo.git@nemo-v2
+torch>=1.13.0
+soundfile
+librosa
 huggingface-hub
+git+https://github.com/AI4Bharat/NeMo.git@nemo-v2#egg=nemo_toolkit[asr]
