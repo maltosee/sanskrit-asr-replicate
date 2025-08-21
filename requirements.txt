@@ -1,0 +1,5 @@
+torch
+soundfile
+numpy
+nemo_toolkit[asr] @ git+https://github.com/AI4Bharat/NeMo.git@nemo-v2
+huggingface-hub
