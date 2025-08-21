@@ -5,14 +5,20 @@ build:
   system_packages:
     - "ffmpeg"
     - "libsndfile1"
+    - "libsox-dev"
+    - "sox"
     - "git"
+    - "build-essential"
   python_packages:
+    - "numpy"
     - "torch>=1.13.0"
     - "soundfile"
-    - "numpy"
-    - "git+https://github.com/AI4Bharat/NeMo.git@nemo-v2#egg=nemo_toolkit[asr]"
+    - "Cython"
     - "huggingface-hub"
     - "librosa"
+    - "omegaconf>=2.0"
+    - "hydra-core>=1.0"
+    - "git+https://github.com/AI4Bharat/NeMo.git@nemo-v2#egg=nemo_toolkit[asr]"
 
 predict: "predict.py:Predictor"
 image: "r8.im/maltosee/vaak-asr"
