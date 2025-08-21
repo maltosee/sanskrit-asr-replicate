@@ -1,0 +1,41 @@
+name: Deploy Sanskrit ASR to Replicate
+
+on:
+  workflow_dispatch:
+    inputs:
+      model_name:
+        description: 'Model name (leave blank to use maltosee/vaak-asr)'
+        required: false
+        default: ''
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Deploy to Replicate
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          tool-cache: false
+          docker-images: false
+          
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Cog
+        uses: replicate/setup-cog@v2
+        with:
+          token: ${{ secrets.REPLICATE_API_TOKEN }}
+          
+      - name: Deploy to Replicate
+        run: |
+          if [ -z "${{ github.event.inputs.model_name }}" ]; then
+            echo "Using default model name: maltosee/vaak-asr"
+            cog push r8.im/maltosee/vaak-asr
+          else
+            echo "Using custom model name: ${{ github.event.inputs.model_name }}"
+            cog push r8.im/${{ github.event.inputs.model_name }}
+          fi
